@@ -15,6 +15,9 @@ func main() {
 	p.Directory = "view"
 	e.Renderer = p
 	e.Use(middleware.Logger())
-	e.Logger.Fatal(e.Start(":3000"))
-	//e.Logger.Fatal(e.Run(fasthttp.New(s.HttpAddress)))
+	e.Use(pongo2.pongo2())
+	//e.Use(bindApp())
+	//e.Logger.Fatal(e.Start(":3000"))
+	//fasthttp.ListenAndServe(":3000")
+	e.Run("127.0.0.1:3000")
 }
