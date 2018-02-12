@@ -13,7 +13,11 @@ import (
   é preciso que o primeiro caracter do nome da função fique em maisusculo, no caso o H
 */
 func Home(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello World")
+	data := map[string]interface{}{
+		"titulo": "Listagem de usuários",
+	}
+
+	return c.Render(http.StatusOK, "index.html", data)
 }
 
 func Inserir(c echo.Context) error {

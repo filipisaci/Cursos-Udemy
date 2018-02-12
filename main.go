@@ -16,4 +16,5 @@ func main() {
 	e.Renderer = p
 	e.Use(middleware.Logger())
 	e.Logger.Fatal(e.Start(":3000"))
+	//e.Logger.Fatal(e.Run(fasthttp.New(s.HttpAddress)))
 }
