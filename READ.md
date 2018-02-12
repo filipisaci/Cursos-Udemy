@@ -3,9 +3,8 @@
 ## Instalações
 * go get -v github.com/golang/dep/cmd/dep
 * go get -v upper.io/db.v3/mysql
-* go get -v gopkg.in/flosch/pongo2.v3 / v3-branch
+* go get -v github.com/MarcusMann/pongor
 * go get -v github.com/flosch/pongo2
-* go get -v github.com/valyala/fasthttp
 * pip install httpie mycli
 * export GOPATH=/home/filipi/go/
 * export PATH=$PATH:$GOPATH/bin
