@@ -12,6 +12,15 @@ import (
   Para exportar esta função (ou seja, para que ela fique acessível de outro arquivo)
   é preciso que o primeiro caracter do nome da função fique em maisusculo, no caso o H
 */
+
+func Get(c echo.Context) error {
+	data := map[string]interface{}{
+		"title":   "Título",
+		"content": "Conteúdo",
+	}
+	return c.Render(http.StatusOK, "test.html", data)
+}
+
 func Home(c echo.Context) error {
 	data := map[string]interface{}{
 		"titulo": "Listagem de usuários",

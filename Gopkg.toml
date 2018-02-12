@@ -31,10 +31,8 @@ required = ["github.com/labstack/echo"]
   version = "3.2.6"
 
 [[constraint]]
-  name = "github.com/flosch/pongo2"
+  name = "github.com/MarcusMann/pongor"
 
-[[constraint]]
-  name = "github.com/ipfans/echo-pongo2"
 [prune]
   go-tests = true
   unused-packages = true
