@@ -22,8 +22,17 @@ func Get(c echo.Context) error {
 }
 
 func Home(c echo.Context) error {
+	var usuarios []model.Usuarios
+
+	if err := model.UserModel.Find().All(usuarios); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"mensagem": "Erro ao acessar o banco de dados!",
+		})
+	}
+
 	data := map[string]interface{}{
-		"titulo": "Listagem de usuários",
+		"titulo":   "Listagem de usuários",
+		"usuarios": usuarios,
 	}
 
 	return c.Render(http.StatusOK, "index.html", data)

@@ -17,9 +17,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for usuario in usuarios%}
                     <tr>
-                        <td></td>
+                        <td>{{usuario.ID}}</td>
+                        <td>{{usuario.Nome}}</td>
+                        <td>{{usuario.Email}}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
