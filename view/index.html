@@ -1,4 +1,4 @@
-{% extend "base.html" %}
+{% extends "base.html" %}
 
 {% block title %} {{titulo}} {% endblock %}
 
@@ -16,7 +16,7 @@
                         <th>E-mail</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                     {% for usuario in usuarios%}
                     <tr>
                         <td>{{usuario.ID}}</td>

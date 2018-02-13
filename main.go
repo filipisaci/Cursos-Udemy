@@ -3,7 +3,6 @@ package main
 import (
 	pongor "github.com/MarcusMann/pongor"
 	r "github.com/filipisaci/Go-Web-Udemy/routers"
-	"github.com/labstack/echo/middleware"
 )
 
 func main() {
@@ -14,6 +13,6 @@ func main() {
 
 	e.Renderer = p
 
-	e.Use(middleware.Logger())
+	//e.Use(middleware.Logger())
 	e.Logger.Fatal(e.Start(":3000"))
 }

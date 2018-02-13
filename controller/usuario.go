@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/filipisaci/Go-Web-Udemy/model"
 	"github.com/labstack/echo"
@@ -24,9 +25,9 @@ func Get(c echo.Context) error {
 func Home(c echo.Context) error {
 	var usuarios []model.Usuarios
 
-	if err := model.UserModel.Find().All(usuarios); err != nil {
+	if err := model.UserModel.Find().All(&usuarios); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
-			"mensagem": "Erro ao acessar o banco de dados!",
+			"mensagem": "Erro ao recuperar valores do banco de dados!",
 		})
 	}
 
@@ -34,7 +35,6 @@ func Home(c echo.Context) error {
 		"titulo":   "Listagem de usuários",
 		"usuarios": usuarios,
 	}
-
 	return c.Render(http.StatusOK, "index.html", data)
 }
 
@@ -59,5 +59,28 @@ func Inserir(c echo.Context) error {
 
 	return c.JSON(http.StatusBadRequest, map[string]string{
 		"mensagem": "Os campos não podem ser nulos",
+	})
+}
+
+func Deletar(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	// mesma coisa que um select * from tabela where id = ?
+	resultado := model.UserModel.Find("id=?", id)
+
+	if count, _ := resultado.Count(); count < 1 {
+		return c.JSON(http.StatusNotFound, map[string]string{
+			"mensagem": "Usuário não encontrado!",
+		})
+	}
+
+	if err := resultado.Delete(); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"mensagem": "Erro ao tentar deletar usuario da base!",
+		})
+	}
+
+	return c.JSON(http.StatusAccepted, map[string]string{
+		"mensagem": "Usuário apagado com sucesso!",
 	})
 }
