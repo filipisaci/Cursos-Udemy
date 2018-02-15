@@ -52,9 +52,7 @@ func Inserir(c echo.Context) error {
 				"mensagem": "Não foi possível adicionar o registro no banco de dados!",
 			})
 		}
-		return c.JSON(http.StatusCreated, map[string]string{
-			"mensagem": "Usuário cadastrado com sucesso!",
-		})
+		return c.Redirect(http.StatusFound, "/")
 	}
 
 	return c.JSON(http.StatusBadRequest, map[string]string{
@@ -83,4 +81,8 @@ func Deletar(c echo.Context) error {
 	return c.JSON(http.StatusAccepted, map[string]string{
 		"mensagem": "Usuário apagado com sucesso!",
 	})
+}
+
+func Add(c echo.Context) error {
+	return c.Render(http.StatusOK, "add.html", nil)
 }
