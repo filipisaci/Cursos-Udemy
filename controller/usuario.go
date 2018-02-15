@@ -86,3 +86,64 @@ func Deletar(c echo.Context) error {
 func Add(c echo.Context) error {
 	return c.Render(http.StatusOK, "add.html", nil)
 }
+
+func Update(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	nome := c.FormValue("nome")
+	email := c.FormValue("email")
+
+	var usuario model.Usuarios
+	usuario.ID = id
+	usuario.Nome = nome
+	usuario.Email = email
+
+	/*
+		var usuario = model.Usuarios{
+			ID:    id,
+			Nome:  nome,
+			Email: email,
+		}
+	*/
+
+	resultado := model.UserModel.Find("id=?", id)
+
+	if count, _ := resultado.Count(); count < 1 {
+		return c.JSON(http.StatusNotFound, map[string]string{
+			"mensagem": "Usuário não encontrado!",
+		})
+	}
+
+	if err := resultado.Update(usuario); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]string{
+			"mensagem": "Erro ao atualizar o registro no banco de dados!",
+		})
+	}
+
+	return c.JSON(http.StatusAccepted, usuario)
+}
+
+func Atualizar(c echo.Context) error {
+	var id, _ = strconv.Atoi(c.Param("id"))
+
+	var usuario model.Usuarios
+
+	resultado := model.UserModel.Find("id=?", id)
+
+	if count, _ := resultado.Count(); count < 1 {
+		return c.JSON(http.StatusNotFound, map[string]string{
+			"mensagem": "Usuário não encontrado no banco de dados!",
+		})
+	}
+
+	if err := resultado.One(&usuario); err != nil {
+		return c.JSON(http.StatusNotFound, map[string]string{
+			"mensagem": "Usuário não encontrado no banco de dados!",
+		})
+	}
+
+	var data = map[string]interface{}{
+		"usuario": usuario,
+	}
+
+	return c.Render(http.StatusOK, "update.html", data)
+}

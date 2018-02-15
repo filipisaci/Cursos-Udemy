@@ -22,8 +22,11 @@
                             <td>{{usuario.Nome}}</td>
                             <td>{{usuario.Email}}</td>
                             <td>
-                                <a class="btn btn-lg btn-danger" onclick="deletarUsuario('{{usuario.ID}}')">
+                                <a class="btn btn-lg btn-danger" onclick="deletarUsuario('{{usuario.ID}}')" style="margin-right: 5px">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-lg btn-warning" href="/atualizar/{{usuario.ID}}">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

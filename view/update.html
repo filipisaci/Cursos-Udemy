@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %} Atualização de usuário {% endblock %} {% block body %}
+
+<div class="container">
+    <div class="jumbotron" style="margin-top: 200px;">
+        <div class="container">
+            <h1 class="text-center">Atualização de usuário</h1>
+                <form class="form-horizontal" id="usuario-form" role="form">
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <input type="text" class="form-control" id="nome" name="nome" value="{{usuario.Nome}}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <input type="email" class="form-control" id="email" name="email" value="{{usuario.Email}}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" onclick="atualizar('{{usuario.ID}}')" class="btn btn-warning btn-block">Atualizar</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    function atualizar(id) {
+        $.ajax({
+            url: "/v1/update/" + id,
+            method: "put",
+            dataType: JSON,
+            data: $("#usuario-form").serialize(),
+            complete: function () {
+                window.location.href = "/";
+            }
+        });
+    }
+</script> {% endblock %}
